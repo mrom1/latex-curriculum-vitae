@@ -1,0 +1,310 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper]{geometry}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage[hidelinks]{hyperref}
+\usepackage{lipsum}
+
+%------------------------------------------------------------------------------
+% Font Package
+%------------------------------------------------------------------------------
+\usepackage[default]{raleway}
+
+\pagestyle{empty}
+
+%------------------------------------------------------------------------------
+% Define Colors
+%------------------------------------------------------------------------------
+\definecolor{caption_text}{HTML}{2b56d6}
+\definecolor{yeartag}{HTML}{2b56d6}
+\definecolor{yeartag_text}{HTML}{ffffff}
+\definecolor{skillpoint}{HTML}{2b56d6}
+\definecolor{background_left}{HTML}{f0f0f0}
+\definecolor{background_right}{HTML}{ffffff}
+
+\definecolor{tagbox_border}{HTML}{E1ECF4}
+\definecolor{tagbox_background}{HTML}{E1ECF4}
+\definecolor{tagbox_text}{HTML}{39739d}
+
+\definecolor{infobox_border}{HTML}{000000}
+\definecolor{infobox_title_text}{HTML}{000000}
+\definecolor{infobox_title_background}{HTML}{f5f5f5}
+\definecolor{infobox_main_background}{HTML}{f5f5f5}
+\definecolor{infobox_main_text}{HTML}{000000}
+
+\definecolor{table_border}{HTML}{2b56d6}
+\definecolor{table_seperator}{HTML}{5c5c5c}
+
+%------------------------------------------------------------------------------
+% Name: tagbox
+% Description: Creates a small height aligned flexible box, use this to
+% describe technologies used in your projects (field of work, frameworks,
+% programming languages etc.).
+%
+% Use: \tagbox{string}
+% Parameter: String to display in box.
+%------------------------------------------------------------------------------
+\NewTotalTColorBox{\tagbox}{ O{once} +m }
+  {size=fbox,sharp corners,
+  colframe=tagbox_border,
+  colback=tagbox_background,
+  coltext=tagbox_text,
+  hbox,nobeforeafter,equal height group=#1}{#2}%\hspace{0.5mm}
+
+%------------------------------------------------------------------------------
+% Name: skillpoints
+% Description: Draws ten circles indicating your ability about a certain subject.
+%
+% Use: \skillpoints{number_of_filled_circles}
+% Parameter: A number between 0-10, filling the number of circles given.
+%------------------------------------------------------------------------------
+\newcommand\skillpoints[1]{
+		\begin{tikzpicture}
+    \foreach \i in {1, ..., 10} {
+      \ifnum\i<#1
+        \draw [fill=skillpoint] (\i/3, 1) circle (1mm);
+      \else
+        \ifnum\i=#1
+          \draw [fill=skillpoint] (\i/3, 1) circle (1mm);
+        \fi
+        \draw (\i/3, 1) circle (1mm);
+      \fi
+      }
+  \end{tikzpicture}
+}%
+
+%------------------------------------------------------------------------------
+% Name: yearentry
+% Description: Creates a vertical timeline with arrow-like figures pointing
+% at a bullet on the vertical timeline.
+%
+% Use: \yearentry{year}{text}
+% Parameter #1: The year to be filled into the arrow-like figure.
+% Parameter #2: Text to be displayed next to the timeline, describing the event.
+%------------------------------------------------------------------------------
+\newcommand\yearentry[2]{
+  \parbox[c]{4em}{
+  \begin{tikzpicture}
+    \draw [fill=yeartag] (0,0.25) -- (0,0.75) -- (1,0.75) -- (1.25, 0.5) -- (1, 0.25) node at (0.5,0.5){\textcolor{yeartag_text}{#1}};
+    ~\hspace{7pt}~
+  \end{tikzpicture}
+  }
+  \makebox[0pt][c]{$\bullet$}\vrule\quad
+  \parbox[c]{10cm}{\vspace{7pt}\color{infobox_main_text}\raggedright\sffamily #2\\[7pt]}\\[-3pt]%
+}%
+
+
+%------------------------------------------------------------------------------
+% Name: L/R/C
+% Description: ragged table macro
+%
+% Use: \L{distance}
+% Parameter #1: distance from the point of alignment
+%------------------------------------------------------------------------------
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\renewcommand{\arraystretch}{1.5} % redefine row height in tables
+
+
+%------------------------------------------------------------------------------
+% Begin of document
+%------------------------------------------------------------------------------
+\begin{document}
+\begin{tcbposter}[
+  coverage = {spread,
+              interior style={
+              left color=background_left,
+              right color=background_left!15!background_right}
+              },
+  poster = {columns=3,rows=2,
+            spacing=2mm,
+            %showframe
+           },
+  ]
+
+%-----------------------------------------------------------------------------------------
+% SIDEBAR
+%-----------------------------------------------------------------------------------------
+  \posterbox[enhanced, sharp corners, frame hidden,
+             colback=background_left!85!background_right
+            ]{name=sidebar,column=1,row=1,rowspan=2} %colframe=red, sharp corners=west,
+  {
+    \textbf{{\color{caption_text}\LARGE Curriculum Vitae}}
+    \vspace{0.5cm}
+    \begin{center} %%% Your Picture %%%
+    \includegraphics[scale=2]{picture}
+    \end{center}
+    \vspace{0.5cm}
+
+    %------------------------------------------------------------------------------
+    % Personal table
+    %------------------------------------------------------------------------------
+    \begin{tabular*}{\textwidth}{C{0.75cm} !{\color{table_seperator}\vrule height 2ex depth 1ex width 1pt} R{4cm}}
+      \arrayrulecolor{table_border}
+      \hline
+      \multicolumn{2}{l}{\textbf{\color{caption_text}Personal}} \\
+      \hline %%% raisebox to align image at vertical center %%%
+      \raisebox{-.25\height}{\includegraphics[height=0.5cm, width=0.5cm]{icons/gps}} & {\footnotesize 01.01.1988, Berlin} \\
+      \raisebox{-.25\height}{\includegraphics[width=0.5cm]{icons/home}} & {\footnotesize Musterstraße 12, 12345 Berlin} \\
+      \raisebox{-.25\height}{\includegraphics[width=0.5cm]{icons/email}} & {\footnotesize \href{mailto:youremail@address.com}{youremail@address.com}} \\
+      \raisebox{-.25\height}{\includegraphics[width=0.5cm]{icons/phone}} & {\footnotesize +12 12 345 689 012} \\
+      \raisebox{-.25\height}{\includegraphics[width=0.5cm]{icons/car}} & {\footnotesize driver license present} \\
+      \raisebox{-.25\height}{\includegraphics[width=0.5cm]{icons/github}} & {\footnotesize  \href{https://github.com/mrom1}{github.com/mrom1}} \\
+    \end{tabular*}
+
+    \vspace{1cm}
+
+    %------------------------------------------------------------------------------
+    % Language skills table
+    %------------------------------------------------------------------------------
+    \begin{tabular*}{\textwidth}{L{1.5cm} R{3.25cm}}
+      \arrayrulecolor{table_border}
+      \hline
+      \multicolumn{2}{l}{\textbf{\color{caption_text}Languages}} \\
+      \hline
+      {\footnotesize German} & \skillpoints{10} \\
+      {\footnotesize English} & \skillpoints{8} \\
+    \end{tabular*}
+
+    \vspace{1cm}
+
+    %------------------------------------------------------------------------------
+    % Technical skills table
+    %------------------------------------------------------------------------------
+    \begin{tabular*}{\textwidth}{L{1.5cm} R{3.25cm}}
+      \arrayrulecolor{table_border}
+      \hline
+      \multicolumn{2}{l}{\textbf{\color{caption_text}Technical Skills}} \\
+      \hline\\
+      \multicolumn{2}{l}{\footnotesize Operation Systems} \\
+      {\footnotesize Linux} & \skillpoints{10} \\
+      {\footnotesize Windows} & \skillpoints{7} \\ \\
+      \multicolumn{2}{l}{\footnotesize Programming Languages} \\
+      {\footnotesize C++} & \skillpoints{10} \\
+      {\footnotesize C} & \skillpoints{8} \\
+      {\footnotesize C\#} & \skillpoints{10} \\
+      {\footnotesize MATLAB} & \skillpoints{10} \\
+      {\footnotesize Java} & \skillpoints{10} \\
+      {\footnotesize Python} & \skillpoints{10} \\ \\
+      \multicolumn{2}{l}{\footnotesize Web Programming} \\
+      {\footnotesize HTML} & \skillpoints{10} \\
+      {\footnotesize JavaScript} & \skillpoints{10} \\ \\
+    \end{tabular*}
+  }
+
+
+  %-----------------------------------------------------------------------------------------
+  % WORK EXPERIENCE
+  %-----------------------------------------------------------------------------------------
+  \posterbox[frame hidden,
+             segmentation style={solid, black, line width=0.5mm},
+             interior style={left color=infobox_main_background,
+                             right color=infobox_main_background!40!background_right
+                            },
+             title style={left color=infobox_title_background,
+                          right color=infobox_title_background!40!background_right
+                         }
+            ]{name=experience,column=2,span=2}
+  {
+    \textbf{{\color{caption_text}Working experience}}
+    \tcbline
+
+    \yearentry{2018}{\textbf{Company Name}\\Code Monkey \hfill \textit{XXXX/XX/XX-YYYY/YY/YY}
+    \\\vspace{2mm}
+    The GNU General Public License is a free, copyleft license for software and other kinds of works. The licenses for most software and other practical works are designed to take away your freedom to share and change the works.
+    \\\vspace{2mm}
+    \tagbox{C++} \tagbox{embedded} \tagbox{Python} \tagbox{SQL} \tagbox{algorithms}
+    }
+
+    \yearentry{2015}{\textbf{Company Name}\\Code Monkey \hfill \textit{XXXX/XX/XX-YYYY/YY/YY}
+    \\\vspace{2mm}
+    By contrast, the GNU General Public License is intended to guarantee your freedom to share and change all versions of a program--to make sure it remains free software for all its users.
+    \\\vspace{2mm}
+    \tagbox{C++} \tagbox{embedded} \tagbox{Python} \tagbox{SQL} \tagbox{algorithms}
+    }
+
+    \yearentry{2012}{\textbf{Company Name}\\Code Monkey \hfill \textit{XXXX/XX/XX-YYYY/YY/YY}
+    \\\vspace{2mm}
+    We, the Free Software Foundation, use the GNU General Public License for most of our software; it applies also to any other work released this way by its authors. You can apply it to your programs, too.
+    \\\vspace{2mm}
+    \tagbox{C++} \tagbox{embedded} \tagbox{Python} \tagbox{SQL} \tagbox{algorithms}
+    }
+  }
+
+  %-----------------------------------------------------------------------------------------
+  % EDUCATION
+  %-----------------------------------------------------------------------------------------
+  \posterbox[frame hidden,
+             coltitle=infobox_title_text,
+             coltext=infobox_main_text,
+             segmentation style={solid, black, line width=0.5mm},
+             interior style={left color=infobox_main_background,
+                             right color=infobox_main_background!40!background_right
+                            },
+             title style={left color=infobox_title_background,
+                          right color=infobox_title_background!40!background_right
+                         }
+            ]{name=education,column=2,span=2, below=experience}
+  {
+  \textbf{{\color{caption_text}Education}}
+  \tcbline
+
+  \yearentry{2015}{\textbf{University}\hfill \textit{XXXX/XX/XX-YYYY/YY/YY}\\Master of Engineering, Computer Engineering}
+  \yearentry{2010}{\textbf{University}\hfill \textit{XXXX/XX/XX-YYYY/YY/YY}\\Bachelor of Engineering, Computer Engineering}
+  }
+
+
+
+  %-----------------------------------------------------------------------------------------
+  % PUBLICATIONS
+  %-----------------------------------------------------------------------------------------
+  \posterbox[frame hidden,
+             coltitle=infobox_title_text,
+             coltext=infobox_main_text,
+             segmentation style={solid, black, line width=0.5mm},
+             interior style={left color=infobox_main_background,
+                             right color=infobox_main_background!40!background_right
+                            },
+             title style={left color=infobox_title_background,
+                          right color=infobox_title_background!40!background_right
+                         }
+            ]{name=publications,column=2,span=2, below=education}
+  {
+  \textbf{{\color{caption_text}Publications}}
+  \tcbline
+
+  \yearentry{2018}{\textbf{Title}\\\textit{Description, Co Author}
+  \\\vspace{2mm}
+  When we speak of free software, we are referring to freedom, not price.
+  \\\vspace{2mm}
+  \tagbox{C++} \tagbox{embedded} \tagbox{Python} \tagbox{SQL} \tagbox{algorithms}
+  }
+
+  \yearentry{2013}{\textbf{Title}\\\textit{Description, Co Author}
+  \\\vspace{2mm}
+  Our General Public Licenses are designed to make sure that you have the freedom to distribute copies of free software
+  \\\vspace{2mm}
+  \tagbox{C++} \tagbox{embedded} \tagbox{Python} \tagbox{SQL} \tagbox{algorithms}
+  }
+
+  }
+
+  %-----------------------------------------------------------------------------------------
+  % SIGNATURE
+  %-----------------------------------------------------------------------------------------
+  \posterbox[frame hidden, opacityfill=0.1]{name=signature, column=2, span=2, between=publications and bottom}
+  {
+  \begin{tabular*}{\textwidth}{l R{10cm} }
+  \multicolumn{2}{l}{\includegraphics[scale=0.2]{signature}} \\
+  Your Name &  \today \\
+  \end{tabular*}
+  }
+
+\end{tcbposter}
+\end{document}

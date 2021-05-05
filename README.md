@@ -3,7 +3,8 @@ If you are a LaTeX freak like me and simply prefer that clean look over a pixel 
 
 This beautiful modern curriculum vitae is written using just a single LaTeX file with 300 lines of code (including comments)!
 
-Unlike other projects that focus mostly on design you can use this for free in whatever context the MIT License will allow you to. \
+Unlike other projects that focus mostly on design you can use this for free in whatever context the MIT License allows you to.
+
 **If you like this project please hit the star button!** 😄
 
 
@@ -15,8 +16,11 @@ Unlike other projects that focus mostly on design you can use this for free in w
 
 ## How to generate the PDF file
 ```console
+# Clone the repository
 git clone https://github.com/mrom1/latex-curriculum-vitae.git
 cd latex-curriculum-vitae
+
+# Generate PDF
 pdflatex cv.tex
 ```
 

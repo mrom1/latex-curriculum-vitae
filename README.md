@@ -1,6 +1,6 @@
 # latex-curriculum-vitae
 
-![Build Workflow](https://github.com/mrom1/latex-curriculum-vitae/actions/workflows/build.yml/badge.svg)
+![Build Workflow](https://github.com/mrom1/latex-curriculum-vitae/actions/workflows/build.yaml/badge.svg)
 
 This project contains a curriculum vitae implemented using LaTeX through a single [cv.tex](cv.tex) file. It is fairly small with approximately 300 lines of code and is easily customizable.
 Published under the MIT License, you can use this project in accordance with the license with no warranty.

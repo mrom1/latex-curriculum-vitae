@@ -1,54 +1,69 @@
 # latex-curriculum-vitae
-If you are a LaTeX freak like me and simply prefer that clean look over a pixel mish mash a Microsoft Word document would generate you, you have come to the right place!
 
-This beautiful modern curriculum vitae is written using just a single LaTeX file with 300 lines of code (including comments)!
+![Build Workflow](https://github.com/mrom1/latex-curriculum-vitae/actions/workflows/build.yml/badge.svg)
 
-Unlike other projects that focus mostly on design you can use this for free in whatever context the MIT License allows you to.
+This project contains a curriculum vitae implemented using LaTeX through a single [cv.tex](cv.tex) file. It is fairly small with approximately 300 lines of code and is easily customizable.
+Published under the MIT License, you can use this project in accordance with the license with no warranty.
 
-**If you like this project please hit the star button!** 😄
+A preview of the CV PDF can be seen [here](output/cv.pdf).
 
+## Package Dependencies
 
-## Packages dependencies
 - tikz
 - posterbox
-- colortbl
+- tcolorbox
 
+## How to Generate the PDF File
 
-## How to generate the PDF file
+First, clone the repository:
+
 ```console
-# Clone the repository
 git clone https://github.com/mrom1/latex-curriculum-vitae.git
 cd latex-curriculum-vitae
+```
 
-# Generate PDF
+Then, you can use either `latexmk` or `pdflatex` to build the cv.tex file.
+
+Using `latexmk`:
+
+```console
+latexmk
+```
+
+Using `pdflatex`:
+
+```console
 pdflatex cv.tex
 ```
 
+## How to Customize to Your Needs
 
-## How to customize to your needs
-Generally just look at the example text and change it to what you need
+Generally, search and replace the text inside cv.tex with your own text while preserving the structure and logic of the `cv.tex` file.
 
 ### Changing the colors
-Colors are defined as variables at the beginning of the file, change them to whatever you like. 😃
+
+Colors are defined as variables at the beginning of the file. Change them to whatever you like.
 
 ### Using the Tagbox
-This is used to show some of the technology stack used in a stackoverflow / github stylish way. For example this line will add two boxes in one row.
+
+This is used to display some of the technology stack in a StackOverflow/GitHub style. For example, this line will add two boxes in one row:
+
 ```console
 \tagbox{C++} \tagbox{Python}
 ```
 
-### Using the yearentry
+### Using the Yearentry
+
 This is used to create an arrow, including the given year, pointing at the middle of the paragraph which describes your previous work. Use it like this:
+
 ```console
-\yearentry{2015}
+\yearentry{2015}{Your job description here.}
 ```
 
 ### Using the skill point measurement
-These are the little dots letting the interviewer get a quick overview what kind of technologies you focused most on in your carrier and how you would judge yourself by that. Simply give it a parameter ranging from ``1-10`` e.g.:
+
+These are the little dots that give the interviewer a quick overview of the technologies you focused on in your career and how you would judge your proficiency. Simply give it a parameter ranging from 1-10, for example:
+
 ```console
 \skillpoints{7}
 ```
-
-
-## ToDo
-- [ ] Add Github Action build
